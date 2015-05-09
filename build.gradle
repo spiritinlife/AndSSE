@@ -1,0 +1,81 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group = 'gr.spiritinlife'
+version = '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+// Still unsupported, see http://issues.gradle.org/browse/GRADLE-784
+// Like this, it won't appear at all in the POM
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
+
+
+signing {
+    sign configurations.archives
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+
+    archives javadocJar
+    archives sourcesJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            pom.project {
+                name 'AndSSE'
+                packaging 'jar'
+                description 'AndSSE is an implementation of Server Sent Events for Android '
+                url ''
+
+                scm {
+                    url ''
+                    connection ''
+                    developerConnection ''
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'Spiritinlife'
+                        name 'George Chailazopoulos'
+                        email 'george.chailazopoulos@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
