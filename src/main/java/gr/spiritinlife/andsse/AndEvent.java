@@ -5,12 +5,13 @@ import android.os.Parcelable;
 
 public class AndEvent implements Parcelable{
 
-
-    public static final String ON_MESSAGE = "ssemessage";
+    private static final String DEFAULT_EVENT =  "ssemessage";
+    public static final String ON_MESSAGE = DEFAULT_EVENT;
 
     String name;
     String data;
     String id;
+
 
 
     public AndEvent(Parcel in) {
@@ -18,6 +19,8 @@ public class AndEvent implements Parcelable{
         data = in.readString();
         id = in.readString();
     }
+
+
     public AndEvent() {
         this.name = ON_MESSAGE;
         this.data = "";

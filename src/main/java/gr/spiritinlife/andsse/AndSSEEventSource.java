@@ -84,8 +84,9 @@ public class AndSSEEventSource implements   Handler.Callback{
 
         Log.i("Connecting",this.url.toString());
 
-        // create the thread
+        // create and start the thread
         andSSE = new AndSSE(url);
+        andSSE.start();
 
         // create the HashMap
         eventListeners = new HashMap<>();
