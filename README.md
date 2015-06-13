@@ -3,8 +3,8 @@ Server Sent Events for Android !
 
 ### Use
 This library is on maven .
-In order to use it you need to add as a dependency in your project.
-    compile 'gr.spiritinlife:andsse:0.0.1'
+In order to use it you need to add it as a dependency in your project.<br>
+#### compile 'gr.spiritinlife:andsse:0.0.1'
 
 ### HOW-TO
 The preferred way to use the library at this moment is to create a singleton adapter that creates the AndSSEEventSource which is the front end
@@ -57,7 +57,7 @@ try {
 
 </code></pre>
 
-Important you need to handle the lifecycle of the AndSSEEventSource thread.
+<b> Important </b> you need to handle the lifecycle of the AndSSEEventSource thread.
 In order to achieve this you need to add the following
 <pre><code>
 @Override
